@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brute-Force Log Analyzer</title>
+<link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+<main>
+  <h1>Brute-Force Log Analyzer</h1>
+  <p>Paste an SSH auth log (for example <code>/var/log/auth.log</code>) or
+  upload a <code>.log</code> / <code>.txt</code> file (max 2 MB). The log is
+  only read as text — nothing in it is executed, no IP is blocked, and no
+  network request is made. A verdict is a pattern assessment, not proof
+  of compromise.</p>
+
+  <form id="analyze-form">
+    <label for="log-text">Log text</label>
+    <textarea id="log-text" name="log_text" rows="12"
+      placeholder="Nov 19 02:10:02 server sshd[3001]: Failed password for root from 203.0.113.45 port 51234 ssh2"></textarea>
+    <label for="log-file">Or upload a log file (max 2 MB)</label>
+    <input id="log-file" type="file" name="log_file" accept=".log,.txt">
+    <button type="submit">Analyze log</button>
+  </form>
+
+  <p>Or try an example:
+    <button type="button" class="example-btn" data-name="attack.log">Load attack example</button>
+    <button type="button" class="example-btn" data-name="benign.log">Load normal example</button>
+  </p>
+
+  <div id="error" class="error" hidden></div>
+
+  <section id="result" hidden>
+    <h2 id="verdict"></h2>
+    <p id="score-line"></p>
+
+    <h3>Summary</h3>
+    <table id="summary-table"></table>
+
+    <h3>Findings</h3>
+    <ul id="findings"></ul>
+
+    <h3>Top IPs</h3>
+    <table id="top-ips-table"></table>
+
+    <h3>Failed logins per hour</h3>
+    <table id="timeline-table"></table>
+    <div id="timeline-bars"></div>
+
+    <h3>Recommendations</h3>
+    <ul id="recommendations"></ul>
+
+    <h3>Unparsed lines</h3>
+    <p id="unparsed-note"></p>
+    <ul id="unparsed"></ul>
+  </section>
+</main>
+<script src="/static/js/app.js"></script>
+</body>
+</html>
